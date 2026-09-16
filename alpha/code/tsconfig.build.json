@@ -1,0 +1,19 @@
+{
+	"extends": ["../../tsconfig.target.json", "../../tsconfig.checks.json"],
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "dist",
+		"esModuleInterop": true,
+		"resolveJsonModule": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist", "test", "coverage", "__bundles__"],
+	"references": [
+		{
+			"path": "../../shared/utils/tsconfig.ref.json"
+		},
+		{
+			"path": "../environment/tsconfig.ref.json"
+		}
+	]
+}

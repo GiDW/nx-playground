@@ -1,0 +1,22 @@
+{
+	"name": "@platform/beta-code",
+	"version": "1.0.0",
+	"description": "Beta domain code",
+	"license": "UNLICENSED",
+	"type": "module",
+	"scripts": {
+		"nx:compile": "tsc -b tsconfig.build.json",
+		"nx:format:check": "prettier . --check",
+		"nx:lint": "echo 'lint ok'",
+		"nx:test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest",
+		"nx:package": "echo 'package ok'"
+	},
+	"dependencies": {
+		"@platform-beta/environment": "*",
+		"@platform-shared/utils": "*"
+	},
+	"devDependencies": {
+		"@jest/globals": "*",
+		"prettier": "*"
+	}
+}

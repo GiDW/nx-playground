@@ -1,0 +1,35 @@
+{
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"projectType": "application",
+	"targets": {
+		"generate-sources": {
+			"command": "npm run nx:compile",
+			"inputs": ["sources", "config", "typescript-outputs-transitive"],
+			"outputs": ["{projectRoot}/dist"]
+		},
+		"validate": {
+			"command": "npm run nx:format:check && npm run nx:lint",
+			"inputs": ["default", "typescript-outputs"]
+		},
+		"test": {
+			"command": "npm run nx:test",
+			"inputs": ["default", "typescript-outputs"]
+		},
+		"package": {
+			"command": "npm run nx:package",
+			"inputs": ["sources", "config", "typescript-outputs-transitive"],
+			"outputs": ["{projectRoot}/__bundles__"]
+		}
+	},
+	"namedInputs": {
+		"sources": ["{projectRoot}/src/**/*"],
+		"tests": ["{projectRoot}/test/**/*"],
+		"config": [
+			"{projectRoot}/jest.config.js",
+			"{projectRoot}/tsconfig.build.json",
+			"{projectRoot}/tsconfig.json",
+			"{projectRoot}/tsconfig.test.json"
+		],
+		"default": ["sources", "tests", "config"]
+	}
+}

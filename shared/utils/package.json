@@ -1,0 +1,31 @@
+{
+	"name": "@platform-shared/utils",
+	"version": "1.0.0",
+	"description": "Shared utility functions",
+	"license": "UNLICENSED",
+	"type": "module",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			},
+			"default": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		}
+	},
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"nx:compile": "tsc -b tsconfig.build.json",
+		"nx:format:check": "prettier . --check",
+		"nx:lint": "echo 'lint ok'",
+		"nx:test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" jest"
+	},
+	"devDependencies": {
+		"@jest/globals": "*",
+		"prettier": "*"
+	}
+}

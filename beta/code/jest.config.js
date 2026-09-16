@@ -1,0 +1,26 @@
+/** @type {import('jest').Config} */
+const config = {
+	preset: "ts-jest",
+	testEnvironment: "node",
+	extensionsToTreatAsEsm: [".ts"],
+	moduleNameMapper: {
+		"^(\\.{1,2}/.*)\\.js$": "$1",
+	},
+	transform: {
+		"^.+\\.tsx?$": [
+			"ts-jest",
+			{
+				tsconfig: "tsconfig.test.json",
+				useESM: true,
+			},
+		],
+	},
+	collectCoverage: true,
+	coverageDirectory: "./coverage",
+	coverageReporters: ["json-summary", "lcov", "text"],
+	collectCoverageFrom: ["src/**/*.ts", "!src/**/*.spec.ts", "!src/**/*.d.ts"],
+	clearMocks: true,
+	injectGlobals: false,
+};
+
+export default config;

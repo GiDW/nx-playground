@@ -1,0 +1,57 @@
+{
+	"$schema": "./node_modules/nx/schemas/nx-schema.json",
+	"namedInputs": {
+		"typescript-outputs": [
+			{
+				"dependentTasksOutputFiles": "**/*.d.ts",
+				"transitive": false
+			},
+			{
+				"dependentTasksOutputFiles": "**/*.js",
+				"transitive": false
+			}
+		],
+		"typescript-outputs-transitive": [
+			{
+				"dependentTasksOutputFiles": "**/*.d.ts",
+				"transitive": true
+			},
+			{
+				"dependentTasksOutputFiles": "**/*.js",
+				"transitive": true
+			}
+		]
+	},
+	"targetDefaults": {
+		"generate-sources": {
+			"dependsOn": ["^generate-sources"],
+			"cache": true,
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		},
+		"validate": {
+			"dependsOn": ["^validate", "generate-sources"],
+			"cache": true,
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		},
+		"test": {
+			"dependsOn": ["^test", "validate"],
+			"cache": true,
+			"outputs": ["{projectRoot}/coverage"],
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		},
+		"package": {
+			"dependsOn": ["^package", "test"],
+			"cache": true,
+			"options": {
+				"cwd": "{projectRoot}"
+			}
+		}
+	},
+	"analytics": false
+}
