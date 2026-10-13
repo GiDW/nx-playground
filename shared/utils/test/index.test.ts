@@ -1,5 +1,5 @@
 import { describe, expect, it } from "@jest/globals";
-import { slugify, generateId } from "../src/index.js";
+import { slugify, generateId, capitalize } from "../src/index.js";
 
 describe("slugify", () => {
 	it("converts a string to a slug", () => {
@@ -17,5 +17,15 @@ describe("generateId", () => {
 		expect(id).toMatch(
 			/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/,
 		);
+	});
+});
+
+describe("capitalize", () => {
+	it("uppercases the first character", () => {
+		expect(capitalize("hello world")).toBe("Hello world");
+	});
+
+	it("returns an empty string unchanged", () => {
+		expect(capitalize("")).toBe("");
 	});
 });

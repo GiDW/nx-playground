@@ -12,3 +12,8 @@ export function slugify(input: string): string {
 export function generateId(): string {
 	return crypto.randomUUID();
 }
+
+/** Uppercases the first character of the input. */
+export function capitalize(input: string): string {
+	return input.charAt(0).toUpperCase() + input.slice(1);
+}
