@@ -1,3 +1,4 @@
+/** Converts text to a lowercase, hyphen-separated URL slug. */
 export function slugify(input: string): string {
 	return input
 		.toLowerCase()
@@ -7,6 +8,7 @@ export function slugify(input: string): string {
 		.replace(/^-+|-+$/g, "");
 }
 
+/** Returns a random UUID v4. */
 export function generateId(): string {
 	return crypto.randomUUID();
 }
