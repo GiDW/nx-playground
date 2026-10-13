@@ -11,6 +11,7 @@ export interface GreetResponse {
 	readonly service: string;
 }
 
+/** Builds a greeting for the given name. */
 export function handler(event: GreetEvent): GreetResponse {
 	return {
 		message: `Hello, ${event.name}!`,
