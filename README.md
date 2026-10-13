@@ -27,5 +27,7 @@ git log --date=short --format='- %ad %s (%h)' shared-utils@2026.10.3..HEAD -- sh
 Full history:
 
 ```sh
-git log --date=short --format='- %ad %s (%h)' -- shared/utils
+git log --date=short --format='- %ad %s (%h)%d' --decorate-refs='refs/tags/shared-utils@*' -- shared/utils
 ```
+
+Commits that were published show their version, e.g. `(tag: shared-utils@2026.10.6)`.
