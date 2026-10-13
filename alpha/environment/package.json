@@ -12,7 +12,7 @@
 		"nx:lint": "echo 'lint ok'"
 	},
 	"dependencies": {
-		"@platform-shared/utils": "*"
+		"@gidw/shared-utils": "*"
 	},
 	"devDependencies": {
 		"prettier": "*"

@@ -1,5 +1,5 @@
 import { config } from "@platform-beta/environment";
-import { generateId } from "@platform-shared/utils";
+import { generateId } from "@gidw/shared-utils";
 
 export interface ProcessEvent {
 	readonly payload: string;

@@ -1,6 +1,6 @@
 {
-	"name": "@platform-shared/utils",
-	"version": "1.0.0",
+	"name": "@gidw/shared-utils",
+	"version": "0.0.0-dev",
 	"description": "Shared utility functions",
 	"license": "UNLICENSED",
 	"type": "module",
@@ -15,6 +15,17 @@
 				"default": "./dist/index.js"
 			}
 		}
+	},
+	"files": [
+		"dist"
+	],
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/GiDW/nx-playground.git",
+		"directory": "shared/utils"
 	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",

@@ -1,0 +1,75 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  packages: write
+
+env:
+  SHARED_PROJECT: "@gidw/shared-utils"
+  SHARED_DIR: shared/utils
+  TAG_PREFIX: shared-utils@
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: "@gidw"
+
+      - run: npm ci
+
+      # Clean build: everything, no cache
+      - name: Build, validate and test all projects
+        run: npx nx run-many -t package --skip-nx-cache
+
+      - name: Detect shared package changes
+        id: detect
+        run: |
+          base=$(git describe --tags --match "${TAG_PREFIX}*" --abbrev=0 2>/dev/null || true)
+          if [ -z "$base" ]; then
+            echo "No previous ${TAG_PREFIX}* tag, publishing"
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          elif npx nx show projects --affected --base="$base" --head=HEAD | grep -qx "$SHARED_PROJECT"; then
+            echo "Shared package affected since $base, publishing"
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Shared package unchanged since $base, skipping publish"
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Version and publish shared package
+        if: steps.detect.outputs.publish == 'true'
+        working-directory: ${{ env.SHARED_DIR }}
+        run: |
+          version="$(date -u +%Y).$((10#$(date -u +%m))).${{ github.run_number }}"
+          npm version "$version" --no-git-tag-version
+          if npm view "${SHARED_PROJECT}@${version}" version >/dev/null 2>&1; then
+            echo "${version} already published, skipping"
+          else
+            npm publish
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Tag published commit
+        if: steps.detect.outputs.publish == 'true'
+        run: |
+          git tag "${TAG_PREFIX}${VERSION}"
+          git push origin "${TAG_PREFIX}${VERSION}"

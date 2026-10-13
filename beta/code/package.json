@@ -13,7 +13,7 @@
 	},
 	"dependencies": {
 		"@platform-beta/environment": "*",
-		"@platform-shared/utils": "*"
+		"@gidw/shared-utils": "*"
 	},
 	"devDependencies": {
 		"@jest/globals": "*",

@@ -1,5 +1,5 @@
 import { config } from "@platform-alpha/environment";
-import { slugify } from "@platform-shared/utils";
+import { slugify } from "@gidw/shared-utils";
 
 export interface GreetEvent {
 	readonly name: string;
